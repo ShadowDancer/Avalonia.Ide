@@ -5,7 +5,7 @@ namespace Avalonia.Ide.CompletionEngine.DnlibMetadataProvider
 {
     class ConstructorArgumentWrapper : IAttributeConstructorArgumentInformation
     {
-        public ConstructorArgumentWrapper(CAArgument ca)
+        public ConstructorArgumentWrapper(CAArgument ca, IInitContext ctx)
         {
             Value = ca.Value;
         }

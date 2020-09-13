@@ -5,7 +5,7 @@ namespace Avalonia.Ide.CompletionEngine.AssemblyMetadata
 {
     public interface IMethodInformation : IXamlMethod
     {
-        IList<IParameterInformation> Parameters { get;}
+        new IList<IParameterInformation> Parameters { get;}
         string ReturnTypeFullName { get; }
     }
 }

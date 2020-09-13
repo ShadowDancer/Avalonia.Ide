@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using XamlX.TypeSystem;
 
 namespace Avalonia.Ide.CompletionEngine.AssemblyMetadata
 {
@@ -36,5 +37,13 @@ namespace Avalonia.Ide.CompletionEngine.AssemblyMetadata
                 return MetadataConverter.ConvertMetadata(session);
         }
         
+        public (Metadata, IXamlTypeSystem) GetForTargetAssemblyWithXaml(string path)
+        {
+            if (!File.Exists(path))
+                return (null, null);
+            
+            using (IMetadataReaderSession session = _provider.GetMetadata(GetAssemblies(path)))
+                return (MetadataConverter.ConvertMetadata(session), session.GetTypeSystem()) ;
+        }
     }
 }

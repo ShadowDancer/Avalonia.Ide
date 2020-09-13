@@ -93,6 +93,12 @@ namespace Avalonia.Ide.CompletionEngine.AssemblyMetadata
 
             }
 
+            var files = Directory.GetFiles("C:\\Program Files (x86)\\dotnet\\shared\\Microsoft.NETCore.App\\3.1.7");
+            foreach(var file in files)
+            {
+                yield return file;
+            }
+
 
         }
 

@@ -1,11 +1,14 @@
-﻿using Avalonia.Ide.CompletionEngine.AssemblyMetadata;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Avalonia.Ide.CompletionEngine.AssemblyMetadata;
 using dnlib.DotNet;
+using XamlX.TypeSystem;
 
 namespace Avalonia.Ide.CompletionEngine.DnlibMetadataProvider
 {
-    class FieldWrapper : IFieldInformation
+    class FieldWrapper : IFieldInformation, IXamlField
     {
-        public FieldWrapper(FieldDef f)
+        public FieldWrapper(FieldDef f, IInitContext ctx)
         {
             IsStatic = f.IsStatic;
             IsPublic = f.IsPublic || f.IsAssembly;
@@ -25,6 +28,9 @@ namespace Avalonia.Ide.CompletionEngine.DnlibMetadataProvider
             }
 
             IsRoutedEvent = isRoutedEvent;
+            FieldType = ctx.GetTypeDef(f.FieldType.FullName);
+            IsLiteral = f.IsLiteral;
+            CustomAttributes = f.CustomAttributes.Select(n => new CustomAttributeWrapper(n, ctx)).ToList();
         }
 
         public bool IsRoutedEvent { get; }
@@ -36,5 +42,21 @@ namespace Avalonia.Ide.CompletionEngine.DnlibMetadataProvider
         public string Name { get; }
 
         public string ReturnTypeFullName { get; }
+
+        public IXamlType FieldType { get; }
+
+        public bool IsLiteral { get; }
+
+        public IReadOnlyList<IXamlCustomAttribute> CustomAttributes { get; }
+
+        public bool Equals(IXamlField other)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public object GetLiteralValue()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -7,3 +7,6 @@
 [submodule "src/external/AvaloniaEdit"]
 	path = src/external/AvaloniaEdit
 	url = https://github.com/AvaloniaUI/AvaloniaEdit.git
+[submodule "src/external/XamlX"]
+	path = src/external/XamlX
+	url = https://github.com/ShadowDancer/XamlX.git
